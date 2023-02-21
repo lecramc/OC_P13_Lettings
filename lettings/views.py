@@ -2,7 +2,7 @@ from .models import Letting
 from django.shortcuts import render
 
 # Create your views here.
-def lettings_index(request):
+def index(request):
     lettings_list = Letting.objects.all()
     context = {'lettings_list': lettings_list}
     return render(request, 'lettings_index.html', context)
