@@ -6,13 +6,14 @@ version: 2.1
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 orbs:
   python: circleci/python@2.1.1
+  poetry: talkiq/poetry@4.0.0
 jobs:
   build_and_test: # this can be any name you choose
     executor: python/default # use the default executor defined within the orb
     steps:
       - checkout # checkout source code
       - python/install-packages:
-          pkg-manager: pip
+          pkg-manager: poetry
       - run:
           name: Run test
           command: pytest
