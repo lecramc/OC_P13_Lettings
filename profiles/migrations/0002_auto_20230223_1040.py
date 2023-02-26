@@ -8,8 +8,6 @@ def move_profiles(apps, schema_editor):
 
     objs = []
 
-       
-
     for old_object in OldProfile.objects.all():
         old_favorite_city = old_object.favorite_city
         old_user = old_object.user
@@ -24,6 +22,8 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('profiles', '0001_initial'),
+        ('oc_lettings_site', '0002_auto_20230223_1017'),
+
     ]
 
     operations = [migrations.RunPython(move_profiles, migrations.RunPython.noop)]
