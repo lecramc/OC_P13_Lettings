@@ -7,7 +7,7 @@ version: 2.1
 orbs:
   python: circleci/python@2.1.1
   docker: circleci/docker@2.0.1
-
+  heroku: circleci/heroku@2.0.0
 jobs:
   test_and_lint: # this can be any name you choose
     executor: python/default # use the default executor defined within the orb
@@ -21,7 +21,7 @@ jobs:
       - run:
           name: Run linting
           command: flake8
-  build_and_push:
+  build_push_deploy:
     docker:
       - image: cimg/python:3.11.1
     steps:
@@ -36,10 +36,19 @@ jobs:
             docker tag oc-p13 $DOCKERHUB_LOGIN/oc-p13:$CIRCLE_SHA1
             docker tag oc-p13 $DOCKERHUB_LOGIN/oc-p13:latest
             docker push $DOCKERHUB_LOGIN/oc-p13 --all-tags
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+      - run:
+          name: Deploy Main to Heroku
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+
 workflows:
   p13-workflow:
     jobs:
-      - test_and_lint
-      - build_and_push
+      - test_and_lint:
+        filters:
+          branches:
+            only: master
+      - build_push_deploy:
+        filters:
+          branches:
+            only: master
