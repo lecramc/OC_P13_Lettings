@@ -6,8 +6,10 @@ version: 2.1
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 orbs:
   python: circleci/python@2.1.1
+  docker: circleci/docker@2.0.1
+
 jobs:
-  build_and_test: # this can be any name you choose
+  test_and_lint: # this can be any name you choose
     executor: python/default # use the default executor defined within the orb
     steps:
       - checkout # checkout source code
@@ -19,9 +21,17 @@ jobs:
       - run:
           name: Run linting
           command: flake8
+  build_and_push:
+    - docker/publish:
+      image: oc_p13
+      deploy: true
+      docker-username: $DOCKER_LOGIN
+      docker-password: $DOCKER_PASSWD
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   p13-workflow:
     jobs:
-      - build_and_test
+      - test_and_lint
+      - build_and_push
