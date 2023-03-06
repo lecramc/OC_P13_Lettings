@@ -11,3 +11,4 @@ RUN pip install -r requirements.txt
 
 EXPOSE 8000
 
+RUN ["gunicorn", "oc_lettings_site.wsgi"]
