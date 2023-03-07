@@ -99,18 +99,12 @@ Si une mise a jour est faite sur une branche autre que master, alors seul les te
 
 ### Configuration Requise
 
-Compte Github
-Compte Sentry
-Compte DockerHub
-Repository Dockerhub
-Compte CircleCI
-Compte Heroku
-Application Heroku créé
-Clé d'environnement configuré sur CircleCI(Clé API Heroku, login et mot de passe Dockerhub, Secrety Django et Sentry DSN)
-
-### Etapes necessaires
-
-Créer le repository Github
-Lier le repository Github avec le compte CircleCI
-Créer le fichier de config sur la branche master, parametrer les workflows et job.
-Commit le fichier sur la branche master
+ - Compte Github
+ - Compte Sentry
+ - Compte DockerHub
+ - Repository Dockerhub
+ - Compte CircleCI
+ - Compte Heroku
+ - Application Heroku créé
+ - Clé d'environnement configuré sur CircleCI(Clé API Heroku, login et mot de passe Dockerhub, clé Secret Django et Sentry DSN)
+ - Clé d'environnement sur heroku (clé Secret Django et Sentry DSN)
