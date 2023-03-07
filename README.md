@@ -85,14 +85,15 @@ https://ocp13.herokuapp.com/
 ### Via Docker
 
 1. Dans un terminal
-2. Executer la commande docker run -p 8000:8000 lecramc/oc-p13:latest
+2. Executer la commande `docker run -d -p 8000:8000 --pull=always lecramc/oc-p13:latest`
 3. Dans un navigateur, acceder a l'adresse suivante : 127.0.0.1:8000
 
-## Workflow CI/CD
+## Déploiement
 
 ### Récapitulatif
 
-Lors d'une mise a jour sur la branche master, la commande pytest est effectué. Si tout les tests sont ok, un déploiement sur Heroku est faite, ainsi que la création et la publication sur Docker Hub
+Lors d'une mise a jour sur la branche master, la commande pytest est effectué.
+Si tout les tests sont ok, un déploiement sur Heroku est fait, ainsi que la création et la publication sur Docker Hub
 
 Si une mise a jour est faite sur une branche autre que master, alors seul les tests seront effectués
 
@@ -105,7 +106,7 @@ Repository Dockerhub
 Compte CircleCI
 Compte Heroku
 Application Heroku créé
-Clé d'environnement configuré sur CircleCI(Clé API Heroku, login et mot de passe Dockerhub, clé secrete Django)
+Clé d'environnement configuré sur CircleCI(Clé API Heroku, login et mot de passe Dockerhub, Secrety Django et Sentry DSN)
 
 ### Etapes necessaires
 
