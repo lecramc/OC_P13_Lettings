@@ -11,5 +11,6 @@ RUN pip install -r requirements.txt
 
 EXPOSE 8000
 
-RUN python manage.py collectstatic
+RUN python oc_lettings_site/manage.py collectstatic --noinput
+
 CMD ["gunicorn", "oc_lettings_site.wsgi"]
