@@ -3,6 +3,7 @@ FROM python:latest
 WORKDIR /usr/src/app/
 
 COPY . .
+COPY .env .env
 COPY requirements.txt .
 
 ENV PYTHONPATH=${PYTHONPATH}:${PWD} 
