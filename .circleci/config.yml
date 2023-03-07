@@ -29,6 +29,7 @@ workflows:
       - docker/publish:
           image: "lecramc/oc-p13"
           tag: "$CIRCLE_SHA1,latest"
+          source-env-file: ".env"
           requires:
             - test_and_lint
           filters:
