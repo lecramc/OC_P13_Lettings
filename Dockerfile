@@ -1,9 +1,5 @@
 FROM python:latest
 
-ARG sentry_dsn
-ENV SENTRY_DSN $sentry_dsn
-
-
 WORKDIR /usr/src/app/
 
 COPY . .
