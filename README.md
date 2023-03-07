@@ -27,7 +27,7 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 - `apt-get install python3-venv` (Si l'étape précédente comporte des erreurs avec un paquet non trouvé sur Ubuntu)
 - Activer l'environnement `source venv/bin/activate`
 - Confirmer que la commande `python` exécute l'interpréteur Python dans l'environnement virtuel
-`which python`
+  `which python`
 - Confirmer que la version de l'interpréteur Python est la version 3.6 ou supérieure `python --version`
 - Confirmer que la commande `pip` exécute l'exécutable pip dans l'environnement virtuel, `which pip`
 - Pour désactiver l'environnement, `deactivate`
@@ -61,7 +61,7 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 - Afficher les tables dans la base de données `.tables`
 - Afficher les colonnes dans le tableau des profils, `pragma table_info(Python-OC-Lettings-FR_profile);`
 - Lancer une requête sur la table des profils, `select user_id, favorite_city from
-  Python-OC-Lettings-FR_profile where favorite_city like 'B%';`
+Python-OC-Lettings-FR_profile where favorite_city like 'B%';`
 - `.quit` pour quitter
 
 #### Panel d'administration
@@ -73,5 +73,43 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 
 Utilisation de PowerShell, comme ci-dessus sauf :
 
-- Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
+- Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1`
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+
+## Acceder au site
+
+### Via Heroku
+
+https://ocp13.herokuapp.com/
+
+### Via Docker
+
+1. Dans un terminal
+2. Executer la commande docker run -p 8000:8000 lecramc/oc-p13:latest
+3. Dans un navigateur, acceder a l'adresse suivante : 127.0.0.1:8000
+
+## Workflow CI/CD
+
+### Récapitulatif
+
+Lors d'une mise a jour sur la branche master, la commande pytest est effectué. Si tout les tests sont ok, un déploiement sur Heroku est faite, ainsi que la création et la publication sur Docker Hub
+
+Si une mise a jour est faite sur une branche autre que master, alors seul les tests seront effectués
+
+### Configuration Requise
+
+Compte Github
+Compte Sentry
+Compte DockerHub
+Repository Dockerhub
+Compte CircleCI
+Compte Heroku
+Application Heroku créé
+Clé d'environnement configuré sur CircleCI(Clé API Heroku, login et mot de passe Dockerhub, clé secrete Django)
+
+### Etapes necessaires
+
+Créer le repository Github
+Lier le repository Github avec le compte CircleCI
+Créer le fichier de config sur la branche master, parametrer les workflows et job.
+Commit le fichier sur la branche master
