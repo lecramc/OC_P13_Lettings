@@ -13,4 +13,4 @@ EXPOSE 8000
 
 RUN python manage.py collectstatic --noinput
 
-CMD ["gunicorn", "oc_lettings_site.wsgi"]
+CMD ["gunicorn", "--workers", "1","oc_lettings_site.wsgi"]
