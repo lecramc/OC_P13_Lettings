@@ -6,6 +6,7 @@ version: 2.1
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 orbs:
   python: circleci/python@2.1.1
+  docker: circleci/docker@2.2.0
   heroku: circleci/heroku@2.0.0
 jobs:
   test_and_lint: # this can be any name you choose
@@ -20,27 +21,15 @@ jobs:
       - run:
           name: Run linting
           command: flake8
-  docker_push:
-    docker:
-      - image: cimg/python:3.11.1
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - run:
-          name: Deploy to Dockerhub
-          command: |
-            docker build -t oc-p13 .
-            docker login --username $DOCKERHUB_LOGIN --password $DOCKERHUB_PASSWD
-            docker tag oc-p13 $DOCKERHUB_LOGIN/oc-p13:$CIRCLE_SHA1
-            docker tag oc-p13 $DOCKERHUB_LOGIN/oc-p13:latest
-            docker push $DOCKERHUB_LOGIN/oc-p13 --all-tags
 
 workflows:
   p13-workflow:
     jobs:
       - test_and_lint
-      - docker_push:
+      - docker/publish:
+          extra_build_args: '--build-arg sentry_dsn=${SENTRY_DSN} --build-arg secret_key=${SECRET_KEY}'
+          image: "lecramc/oc-p13"
+          tag: "$CIRCLE_SHA1,latest"
           requires:
             - test_and_lint
           filters:
@@ -49,7 +38,7 @@ workflows:
       - heroku/deploy-via-git:
           app-name: ocp13
           requires:
-            - docker_push
+            - docker/publish
           filters:
             branches:
               only: master

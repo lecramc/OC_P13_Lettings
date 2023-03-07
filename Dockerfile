@@ -1,9 +1,14 @@
 FROM python:latest
 
+ARG secret_key
+ARG sentry_dsn
+ENV SECRET_KEY $secret_key
+ENV SENTRY_DSN $sentry_dsn
+
+
 WORKDIR /usr/src/app/
 
 COPY . .
-COPY .env .env
 COPY requirements.txt .
 
 ENV PYTHONPATH=${PYTHONPATH}:${PWD} 
