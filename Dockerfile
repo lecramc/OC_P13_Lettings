@@ -1,5 +1,9 @@
 FROM python:latest
 
+
+ENV SECRET_KEY=$SECRET_KEY
+ENV SENTRY_DSN=$SENTRY_DSN
+
 WORKDIR /usr/src/app/
 
 COPY . .
