@@ -1,8 +1,6 @@
 FROM python:latest
 
-ARG secret_key
 ARG sentry_dsn
-ENV SECRET_KEY $secret_key
 ENV SENTRY_DSN $sentry_dsn
 
 
