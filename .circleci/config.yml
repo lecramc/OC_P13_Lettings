@@ -27,11 +27,9 @@ workflows:
     jobs:
       - test_and_lint
       - docker/publish:
+          extra_build_args: '--build-arg secret_key=$SECRET_KEY --build-arg sentry_dsn=$SENTRY_DSN'
           image: "lecramc/oc-p13"
           tag: "$CIRCLE_SHA1,latest"
-          environment:
-            SECRET_KEY: $SECRET_KEY
-            SENTRY_DSN: $SENTRY_DSN
           requires:
             - test_and_lint
           filters:
