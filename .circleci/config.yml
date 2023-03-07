@@ -6,7 +6,7 @@ version: 2.1
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 orbs:
   python: circleci/python@2.1.1
-  docker: circleci/docker@2.0.1
+  docker: circleci/docker@2.2.0
   heroku: circleci/heroku@2.0.0
 jobs:
   test_and_lint: # this can be any name you choose
