@@ -41,14 +41,15 @@ workflows:
     jobs:
       - test_and_lint
       - docker_push:
-        requires:
-          - test_and_lint
-        filters:
-          branches:
-            only: master
-      - heroku/deploy-via-git:
           requires:
             - test_and_lint
+          filters:
+            branches:
+              only: master
+      - heroku/deploy-via-git:
+          app-name: ocp13
+          requires:
+            - docker_push
           filters:
             branches:
               only: master
