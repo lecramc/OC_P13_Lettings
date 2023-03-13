@@ -35,7 +35,7 @@ workflows:
           filters:
             branches:
               only: master
-      - heroku/deploy-via-git:
+      - heroku/push-docker-image:
           app-name: ocp13
           requires:
             - docker/publish
