@@ -1,15 +1,11 @@
-import pytest
-from django.test import Client
+from django.test import  TestCase
 from django.urls import reverse
 
-@pytest.mark.django_db
-def test_view_code():
-    client = Client()
-    response = client.get(reverse('lettings:index'))
-    assert response.status_code == 200
+class LettingsTest(TestCase):
+    def test_view_code(self):
+        response = self.client.get(reverse('lettings:index'))
+        assert response.status_code == 200
 
-@pytest.mark.django_db
-def test_view_title():
-    client = Client()
-    response = client.get(reverse('lettings:index'))
-    assert "Lettings" in str(response.content)
+    def test_view_title(self):
+        response = self.client.get(reverse('lettings:index'))
+        assert "Lettings" in str(response.content)
