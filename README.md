@@ -92,8 +92,10 @@ https://ocp13.herokuapp.com/
 
 ### Récapitulatif
 
-Lors d'une mise a jour sur la branche master, la commande pytest est effectué.
-Si tout les tests sont ok, un déploiement sur Heroku est fait, ainsi que la création et la publication sur Docker Hub
+Lors d'un push sur la branche master :
+ - lint and test
+ - création d'une image docker et push sur dockerhub
+ - deploiement sur heroku
 
 Si une mise a jour est faite sur une branche autre que master, alors seul les tests seront effectués
 
